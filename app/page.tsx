@@ -35,14 +35,16 @@ export default function Home() {
   return (
    
   <main className="flex min-h-screen flex-col items-center p-4 sm:p-10">
-    <div className=" flex ">
+    <div className=" flex  ">
       <h1 className="text-xl font-bold mb-4">Inventory Dashboard</h1>
     </div>
 
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
       {stores.map((store, index) => (
         <Link key={index} href={store.href}>
-          <CardwithData title={`${store.title}`} description={store.description} content="content" footer="footer" store="fxr-racing-ca"/>
+          
+          <CardwithData title={`${store.title}`} description={store.description} content="content" footer="footer" store={store.store}/>
+          
         </Link>
       ))}
     </div>
