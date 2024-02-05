@@ -38,7 +38,7 @@ export default async function Totals({ params: { store } }: Props) {
         <h1 className="text-xl font-bold mb-4">
           All Inventory Mutations at {store}
         </h1>
-
+{Object.keys(groupedFiles).length === 0 ? "No files found" : ""}
         {Object.entries(groupedFiles).map(([hour, items]) => (
           <div
             key={hour}
