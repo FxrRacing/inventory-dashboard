@@ -95,7 +95,7 @@ async function CardwithData( {title, description, content, footer, store}: {titl
           
           <div className="flex items-center">
             <StarIcon className="mr-1 h-3 w-3" />
-            {storeCountToday }
+            {storeCountToday } mutations today
           </div>
          
         </div>
