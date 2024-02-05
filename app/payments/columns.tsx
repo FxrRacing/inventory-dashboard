@@ -222,7 +222,7 @@ export const newColumns: ColumnDef<File>[] = [
                 if (errors) {
                   return (
                     <div className="flex justify-right">
-                      <Badge variant="destructive">{errors}</Badge>
+                      <Badge variant="destructive">{errors} Errors</Badge>
                     </div>
                   );
                 }
