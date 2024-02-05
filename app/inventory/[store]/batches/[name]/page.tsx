@@ -88,7 +88,7 @@ export default async function batches({ params: { store, name } }: Props) {
     hour12: true,
   });
   
-  //console.log(data)
+  
   return (
     <div>
       <h1 className="text-xl font-bold mb-4">
@@ -133,7 +133,7 @@ export default async function batches({ params: { store, name } }: Props) {
                 errorMessages={errorMessages}
                 errorFields={errorFields}
                 errorCount={errorCount}
-              />
+              /> 
             </CardFooter>
           </Card>
         </div>

@@ -1,5 +1,5 @@
 import { newColumns } from "@/app/payments/columns";
-import { NewDataTable } from "@/app/payments/data-table";
+import { AltTable, NewDataTable } from "@/app/payments/data-table";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { File } from "@/app/payments/columns";
@@ -51,8 +51,13 @@ export default async function Inventory({ params: { store } }: Props) {
     yesterdayDayandMonth
   );
 
-
-  const groupedData = await groupFilesByHour(newData);
+  
+  const groupedData = groupFilesByHour(newData);
+  const checker = groupedData.map((group, index) => {
+    console.log(group.files);
+    console.log(group.timeRange);
+    console.log(index)
+  });
   // Now let's render this like we're not stuck in the 90s
   ///inventory/${store}/batches/${item.key}
   return (
@@ -68,21 +73,22 @@ export default async function Inventory({ params: { store } }: Props) {
             </Link>
           </div>
         </div>
+   {
+      groupedData.length === 0 ? < AltTable columns={newColumns} data={newData} /> : null
+   }
+
+        {groupedData.map((group, index) => (
+          
+  <div key={`${group.timeRange}-${index}`} className="mb-5"> 
+    <h2 className="text-lg font-bold mb-2">
+      {group.timeRange.replace('-', ' to ')} batch  - {group.count} mutation(s)
+    </h2>
     {
-      groupedData.length === 0 ?< NewDataTable columns={newColumns} data={newData} /> : null
+      group.files.length > 0 ? <AltTable columns={newColumns} data={group.files} /> : <p>No mutations in this batch</p>
     }
-        
-        {groupedData.map((group) => (
-          <div key={group.timeRange} className="mb-5">
-            <h2 className="text-lg font-bold mb-2">
-              {group.timeRange.replace('-', ' to ')} batch  - {group.count} mutation(s)
-            </h2>
-            {
-              group.files.length > 0 ? <NewDataTable columns={newColumns} data={group.files} /> : <p>No data available</p>
-            }
-            
-          </div>
-        ))}
+  </div>
+))}
+       
       </div>
     </>
   );
@@ -143,28 +149,22 @@ type GroupedFiles = {
     count: number;
   };
   
-  async function groupFilesByHour(files: File[]): Promise<GroupedFiles[]> {
+  function groupFilesByHour(files: File[]): GroupedFiles[] {
     const grouped = files.reduce((acc: { [key: string]: { files: File[]; count: number } }, file: File) => {
-      // Extract the hour from the uploaded timestamp
       const hour = new Date(file.uploaded).getHours();
-      const key = `${hour}-${hour + 1}`;
-  
-      // Initialize the group if it doesn't exist
+      const ampm = hour >= 12 ? "Pm" : "Am";
+      const key = `${hour}${ampm}-${hour + 1}${ampm}`; // oh, look, time magically doesn't overlap at 23-24
+      
       if (!acc[key]) {
-        acc[key] = {
-          files: [],
-          count: 0,
-        };
+        acc[key] = { files: [], count: 0 };
       }
   
-      // Push the current file to the correct group and increment the batch count
       acc[key].files.push(file);
       acc[key].count++;
   
       return acc;
     }, {});
   
-    // Now convert this object into an array of group objects your data table can understand
     return Object.entries(grouped).map(([timeRange, { files, count }]) => ({
       timeRange,
       files,

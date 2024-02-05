@@ -17,7 +17,19 @@ async function getData(): Promise<Payment[]> {
         amount: 100,
         status: "pending",
         email: "webmail@email.com",
-    }
+    },
+    {
+        id: "728ed52f",
+        amount: 900,
+        status: "success",
+        email: "fieren@adventurers.com",
+    },
+    {
+        id: "728ed52f",
+        amount: 100,
+        status: "pending",
+        email: "we@we.com",
+    },
     // ...
   ]
 }
@@ -34,7 +46,7 @@ const dayandMonth = reversedDate.split('-').slice(0,2).join('-')
   return (
     <div className="container mx-auto py-10">
       <DataTable columns={columns} data={data} />
-      <NewDataTable columns={newColumns} data={newData} />
+     
     </div>
   )
 }

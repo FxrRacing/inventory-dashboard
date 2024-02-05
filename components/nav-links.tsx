@@ -12,6 +12,7 @@ import {
   
   // Map of links to display in the side navigation.
   // Depending on the size of the application, this would be stored in a database.
+  type Viewport = 'desktop' | 'mobile';
   const links = [
     { name: 'Home', 
     href: '/', 
@@ -51,12 +52,12 @@ import {
               key={link.name}
               href={link.href}
               className={clsx(
-                'flex h-[48px] grow items-center justify-center gap-2 rounded-md  text-slate-900  bg-white p-3 text-sm font-medium hover:bg-sky-100 hover:text-slate-600 md:flex-none md:justify-start md:p-2 md:px-3',
+                'flex h-[48px] grow items-center justify-center gap-2 rounded-md  text-slate-950  bg-white p-3 text-sm font-medium hover:bg-sky-100 hover:text-slate-600 md:flex-none md:justify-start md:p-2 md:px-3',
                 {
                   'bg-sky-200 text-blue-900': pathname.startsWith(`${link.href}`)   && link.name !== 'Home',
                 },
               )}
-            >
+            > 
               <LinkIcon className="w-6" />
               <p className="hidden md:block">{link.name}</p>
             </a>
