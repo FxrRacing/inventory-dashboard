@@ -88,11 +88,11 @@ export default async function batches({ params: { store, name } }: Props) {
     hour12: true,
   });
   
-  console.log(data)
+  //console.log(data)
   return (
     <div>
       <h1 className="text-xl font-bold mb-4">
-        {titleString}d at {formattedDate}{" "}
+        {titleString+'d'} at {formattedDate}{" "}
       </h1>
       <div>
         <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-2">
