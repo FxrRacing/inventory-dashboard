@@ -132,7 +132,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const variantUrl: string = row.getValue("variantUrl");
       return (
-        <Link href={`${variantUrl}`} className=" flex items-center text-blue-600 hover:underline text-base">View Variant <ArrowUpRightIcon className="h-4 w-4" /></Link>
+        <a target="_blank" rel="noopener noreferrer" href={`${variantUrl}`} className=" flex items-center text-blue-600 hover:underline text-base">View Variant <ArrowUpRightIcon className="h-4 w-4" /></a>
       )
   }
 },
@@ -143,7 +143,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const url: string = row.getValue("urlReferences");
       return (
-      <Link href={`${url}`} className=" flex items-center text-blue-600 hover:underline text-base">View in shopify <ArrowUpRightIcon className="h-4 w-4" /></Link>)
+        <a target="_blank" rel="noopener noreferrer" href={`${url}`} className=" flex items-center text-blue-600 hover:underline text-base">View in shopify <ArrowUpRightIcon className="h-4 w-4" /></a>)
     },
 
   }
@@ -242,7 +242,7 @@ export const newColumns: ColumnDef<File>[] = [
             cell: ({row}) => {
               const region: any = row.getValue("customMetadata");
               const uploaded: string = row.getValue("uploaded");
-              console.log(uploaded)
+             
               const name: string = row.getValue("key");
               if (!region) {
                   <Link href={`inventory/${name}`} className=" flex items-center text-blue-600 hover:underline text-base">View <ArrowUpRightIcon className="h-4 w-4" /></Link>
