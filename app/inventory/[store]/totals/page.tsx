@@ -140,15 +140,15 @@ async function getMatchingFiles(store: string): Promise<InventoryResponse> {
         const data = await request.json();
         return data as InventoryResponse;
       } catch (e) {
-        // oh no, parsing failed. what a surprise!
+        
         console.error("Parsing error:", e);
-        // maybe return something meaningful here?
+       
         throw new Error("Failed to parse JSON");
       }
     } catch (e) {
-      // oh look, fetch failed. who could have guessed?
+     
       console.error("Fetch error:", e);
-      throw e; // rethrow because we're not animals
+      throw e; 
     }
   }
   

@@ -39,16 +39,13 @@ import {
   export default function NavLinks() {
     const pathname= usePathname();
     
-   console.log(pathname);
+   
    
     return (
       <>
         {links.map((link) => {
           const LinkIcon = link.icon;
-          if(link.name !== 'Home' && pathname.startsWith(`${link.href}`)   ){
-            console.log('true');
           
-          };
           return (
             <a
               key={link.name}
@@ -56,12 +53,8 @@ import {
               className={clsx(
                 'flex h-[48px] grow items-center justify-center gap-2 rounded-md  text-slate-900  bg-white p-3 text-sm font-medium hover:bg-sky-100 hover:text-slate-600 md:flex-none md:justify-start md:p-2 md:px-3',
                 {
-                  'bg-sky-200 text-green-900': pathname.startsWith(`${link.href}`)   && link.name !== 'Home',
+                  'bg-sky-200 text-blue-900': pathname.startsWith(`${link.href}`)   && link.name !== 'Home',
                 },
-                
-
-                
-                
               )}
             >
               <LinkIcon className="w-6" />

@@ -21,7 +21,7 @@ async function getData(): Promise<Payment[]> {
     // ...
   ]
 }
-//fxr-racing-ca-inventory-update-29-01-2024T21-32-11.json
+
 export default async function DemoPage() {
   const data = await getData()
   const todaysDate = new Date().toISOString().split('T')[0]
@@ -51,9 +51,9 @@ async function getMostRecentFiles(store:string, dayAndMonth: string) {
         });
         const data = await response.json();
         if (!response.ok) throw new Error(`Failed request with status: ${response.status}`);
-        return data.objects || []; // look, no unnecessary nesting!
+        return data.objects || [];
     } catch (e) {
         console.error("Error:", e);
-        throw new Error('Failed to fetch or parse data'); // concise and to the point, unlike your original code
+        throw new Error('Failed to fetch or parse data'); 
     }
 }

@@ -31,7 +31,7 @@ export interface InventoryResponse {
   delimitedPrefixes: string[]; // another array, you're on a roll
 }
 
-function formatDate(date: Date) {
+export function formatDate(date: Date) {
   const dd = String(date.getDate()).padStart(2, "0");
   const mm = String(date.getMonth() + 1).padStart(2, "0"); // Remember, months are 0-based
   const yyyy = date.getFullYear();
@@ -50,6 +50,7 @@ export default async function Inventory({ params: { store } }: Props) {
     todayDayandMonth,
     yesterdayDayandMonth
   );
+
 
   const groupedData = await groupFilesByHour(newData);
   // Now let's render this like we're not stuck in the 90s
@@ -96,15 +97,15 @@ export default async function Inventory({ params: { store } }: Props) {
           <NewDataTable columns={newColumns} data={newData} />
         </section> */}
 
-async function getMostRecentFiles(
+export async function getMostRecentFiles(
   store: string,
   today: string,
   yesterday: string
 ) {
 
   let attempts = [
-    `${baseUrl}/${store}-inventory-update-${today}`, // "optimism" they call it
-    `${baseUrl}/${store}-inventory-update-${yesterday}`, // "pessimism" or "reality"
+    `${baseUrl}/${store}-inventory-update-${today}`, 
+    `${baseUrl}/${store}-inventory-update-${yesterday}`, 
   ];
 
   for (let url of attempts) {
@@ -112,25 +113,25 @@ async function getMostRecentFiles(
       const response = await fetch(url, {
         cache: "no-store",
         headers: {
-          Authorization: process.env.INVENTORY_API_TOKEN || "", // pretending we secure now
+          Authorization: process.env.INVENTORY_API_TOKEN || "", 
           "Content-Type": "application/json",
         },
       });
       if (!response.ok) {
-        throw new Error(`Failed request with status: ${response.status}`); // because errors are badges of honor
+        throw new Error(`Failed request with status: ${response.status}`); 
       }
 
       const data = await response.json();
      
       if (data.objects && data.objects.length > 0) {
-        return data.objects; // ah, the sweet smell of "success"
+        return data.objects; 
       }
       
-      console.warn("Received empty data.objects, retrying..."); // because we're verbose about our failures
+      console.warn("Received empty data.objects, retrying..."); 
     } catch (e) {
-      console.error("Fetching or parsing failed, as expected:", e);
-      // breaking news: we don't retry on catch, because we only care about empty arrays, not actual errors
-      throw new Error("No data after retries. Try not to cry.");
+      console.error("Fetching or parsing failed", e);
+     
+      throw new Error("No data after retries. Check logs for details.");
     }
   }
   return []; // if you're here, there was no data today and yessterday

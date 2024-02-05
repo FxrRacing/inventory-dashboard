@@ -9,7 +9,7 @@ return(
       Loading...
     </h1>
     
-      <div className="flex justify-center mt-5">
+      <div className="grid grid-cols-2 gap-4">
         <SkeletonCard />
         <SkeletonCard />
         <SkeletonCard />
@@ -24,10 +24,10 @@ return(
 export function SkeletonCard() {
     return (
       <div className="flex flex-col space-y-3">
-        <Skeleton className="h-[125px] w-[850px] rounded-xl" />
+        <Skeleton className="h-[125px] w-[550px] rounded-xl" />
         <div className="space-y-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[200px]" />
+          <Skeleton className="h-4 w-[100px]" />
+          <Skeleton className="h-4 w-[100px]" />
         </div>
       </div>
     )

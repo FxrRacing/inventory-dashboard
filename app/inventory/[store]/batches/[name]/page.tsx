@@ -138,7 +138,7 @@ export default async function batches({ params: { store, name } }: Props) {
           </Card>
         </div>
         <section className="mt-4">
-          <p>table will be here</p>
+         
            
           <NewDataTable columns={transactionColumns} data={data.transaction} />
         </section>
@@ -160,7 +160,7 @@ function ErrorHoverCard({
     <>
       <HoverCard>
         <HoverCardTrigger asChild>
-          <Button variant="link">@errors</Button>
+          <Button variant="link">@View Errors</Button>
         </HoverCardTrigger>
         <HoverCardContent className="w-80">
           <div className="flex justify-between space-x-4">
