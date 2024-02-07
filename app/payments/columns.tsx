@@ -279,7 +279,7 @@ export const newColumns: ColumnDef<File>[] = [
                 // Assuming errors is the key factor for determining the badge type
                 const errors = customMetadata?.errors;
               
-                if (errors) {
+                if (errors >1) {
                   return (
                     <div className="flex justify-right">
                       <Badge variant="destructive">{errors} Errors</Badge>

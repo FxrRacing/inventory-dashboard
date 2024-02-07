@@ -151,9 +151,10 @@ type GroupedFiles = {
   
   function groupFilesByHour(files: File[]): GroupedFiles[] {
     const grouped = files.reduce((acc: { [key: string]: { files: File[]; count: number } }, file: File) => {
+      console.log(file.uploaded);
       const hour = new Date(file.uploaded).getHours();
-      const ampm = hour >= 12 ? "Pm" : "Am";
-      const key = `${hour}${ampm}-${hour + 1}${ampm}`; // oh, look, time magically doesn't overlap at 23-24
+      const ampm = hour >= 12 ? "PM" : "AM";
+      const key = `${hour} ${ampm}-${hour + 1} ${ampm}`; // oh, look, time magically doesn't overlap at 23-24
       
       if (!acc[key]) {
         acc[key] = { files: [], count: 0 };
