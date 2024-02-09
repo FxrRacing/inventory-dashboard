@@ -133,7 +133,7 @@ export async function getMostRecentFiles(
         return data.objects; 
       }
       
-      console.warn("Received empty data.objects, retrying..."); 
+      console.warn("Received empty data.objects, requesting from the previous day..."); 
     } catch (e) {
       console.error("Fetching or parsing failed", e);
      
