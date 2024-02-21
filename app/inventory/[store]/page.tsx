@@ -116,7 +116,7 @@ export async function getMostRecentFiles(
 
   for (let url of attempts) {
     try {
-      const response = await fetch(url, {
+      const response = await fetch(`${url}?limit=1000`, {
         cache: "no-store",
         headers: {
           Authorization: process.env.INVENTORY_API_TOKEN || "", 
