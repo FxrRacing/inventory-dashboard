@@ -34,7 +34,12 @@ import {
       name: 'SASK',
       href: '/inventory/adrenalinesask',
       icon: BuildingStorefrontIcon,
-    }
+    },
+    {
+      name: 'US',
+      href: '/inventory/fxr-racing-com',
+      icon: BuildingStorefrontIcon,
+    },
   ];
   
   export default function NavLinks() {

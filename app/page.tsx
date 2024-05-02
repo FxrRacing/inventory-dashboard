@@ -31,6 +31,7 @@ export default function Home() {
     { title: "WPG Outlet Store", description: "View and manage inventory adjustments made via the Inventory Management Service, including recent mutations, any errors and historical data.", content: "Card Content", footer: "Card Footer" , href: '/inventory/adrenalinewpg',store: 'adrenalinewpg' },
     { title: "SASK Outlet Store", description: "View and manage inventory adjustments made via the Inventory Management Service, including recent mutations, any errors and historical data.", content: "Card Content", footer: "Card Footer", href: '/inventory/adrenalinesask' ,store: 'adrenalinesask'},
     { title: "EDM Outlet store", description: "View and manage inventory adjustments made via the Inventory Management Service, including recent mutations, any errors and historical data.", content: "Card Content", footer: "Card Footer", href: '/inventory/adrenalineedm' ,store: 'adrenalineedm'},
+    { title: "US Outlet Store", description: "View and manage inventory adjustments made via the Inventory Management Service, including recent mutations, any errors and historical data.", content: "Card Content", footer: "Card Footer", href: '/inventory/fxr-racing-com', store: 'fxr-racing-com' },
   ];
   return (
    
