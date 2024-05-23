@@ -53,11 +53,11 @@ export default async function Inventory({ params: { store } }: Props) {
 
   
   const groupedData = groupFilesByHour(newData);
-  const checker = groupedData.map((group, index) => {
-    console.log(group.files);
-    console.log(group.timeRange);
-    console.log(index)
-  });
+  // const checker = groupedData.map((group, index) => {
+  //  // console.log(group.files);
+  //  // console.log(group.timeRange);
+  //   console.log(index)
+  // });
   // Now let's render this like we're not stuck in the 90s
   ///inventory/${store}/batches/${item.key}
   return (
@@ -108,7 +108,7 @@ export async function getMostRecentFiles(
   today: string,
   yesterday: string
 ) {
-
+console.log(today);
   let attempts = [
     `${baseUrl}/${store}-inventory-update-${today}`, 
     `${baseUrl}/${store}-inventory-update-${yesterday}`, 
@@ -128,6 +128,7 @@ export async function getMostRecentFiles(
       }
 
       const data = await response.json();
+     // console.log(data.objects.length);
      
       if (data.objects && data.objects.length > 0) {
         return data.objects; 
@@ -148,27 +149,35 @@ type GroupedFiles = {
     files: File[];
     count: number;
   };
-  
-  function groupFilesByHour(files: File[]): GroupedFiles[] {
+  export function groupFilesByHour(files: File[]): GroupedFiles[] {
     const grouped = files.reduce((acc: { [key: string]: { files: File[]; count: number } }, file: File) => {
-      console.log(file.uploaded);
-      const hour = new Date(file.uploaded).getHours();
-      const ampm = hour >= 12 ? "PM" : "AM";
-      const key = `${hour} ${ampm}-${hour + 1} ${ampm}`; // oh, look, time magically doesn't overlap at 23-24
-      
-      if (!acc[key]) {
-        acc[key] = { files: [], count: 0 };
-      }
-  
-      acc[key].files.push(file);
-      acc[key].count++;
-  
-      return acc;
+        const date = new Date(file.uploaded);
+        
+        // Convert to CST
+        const options = { timeZone: 'America/Chicago', hour12: false };
+        const cstDateString = date.toLocaleString('en-US', options);
+        const cstDate = new Date(cstDateString);
+      console.log(cstDate);
+        const hour = cstDate.getHours();
+        const startHour = hour % 12 || 12; // Convert to 12-hour format, using 12 instead of 0
+        const endHour = (hour + 1) % 12 || 12; // Convert to 12-hour format, using 12 instead of 0
+        const ampmStart = hour >= 12 ? "PM" : "AM";
+        const ampmEnd = (hour + 1) >= 12 ? "PM" : "AM";
+        const key = `${startHour} ${ampmStart}-${endHour} ${ampmEnd}`;
+
+        if (!acc[key]) {
+            acc[key] = { files: [], count: 0 };
+        }
+
+        acc[key].files.push(file);
+        acc[key].count++;
+
+        return acc;
     }, {});
-  
+
     return Object.entries(grouped).map(([timeRange, { files, count }]) => ({
-      timeRange,
-      files,
-      count,
+        timeRange,
+        files,
+        count,
     }));
-  }
+}

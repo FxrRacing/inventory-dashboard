@@ -262,40 +262,43 @@ export const newColumns: ColumnDef<File>[] = [
         },
         //use clsx next time
         {
-            accessorKey: "customMetadata",
-            header: ({ column }) => {
-                return (
-                    <Button
-                      variant="ghost"
-                      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Status
-                      <ChevronsUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                  )
-            },
-            cell: ({ row }) => {
-                const customMetadata: any = row.getValue("customMetadata");
-                // Assuming errors is the key factor for determining the badge type
-                const errors = customMetadata?.errors;
-              
-                if (errors >1) {
-                  return (
-                    <div className="flex justify-right">
-                      <Badge variant="destructive">{errors} Errors</Badge>
-                    </div>
-                  );
-                }
-              
-                // No errors or customMetadata doesn't exist
-                return (
-                  <div className="flex justify-center">
-                    <Badge variant="success">No errors</Badge>
-                  </div>
-                );
-              },
-              
-        },
+          accessorKey: "customMetadata",
+          header: ({ column }) => {
+            return (
+              <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+              >
+                Status
+                <ChevronsUpDown className="ml-2 h-4 w-4" />
+              </Button>
+            );
+          },
+          cell: ({ row }) => {
+            const customMetadata: any = row.getValue("customMetadata");
+            const errors = customMetadata?.errors;
+        
+            if (errors > 1) {
+              return (
+                <div className="flex justify-center">
+                  <Badge variant="destructive">{errors} Errors</Badge>
+                </div>
+              );
+            }
+        
+            return (
+              <div className="flex justify-center">
+                <Badge variant="success">No errors</Badge>
+              </div>
+            );
+          },
+          sortingFn: (rowA, rowB, columnId) => {
+            const a = rowA.getValue(columnId)?.errors || 0;
+            const b = rowB.getValue(columnId)?.errors || 0;
+            return a - b;
+          }
+        }
+        ,
         {
             accessorKey: "customMetadata,name",
             header: "",

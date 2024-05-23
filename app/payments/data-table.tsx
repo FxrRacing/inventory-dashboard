@@ -303,7 +303,8 @@ export function AltTable<TData, TValue>({
       columnFilters,
     },
   });
-
+  const pageIndex = table.getState().pagination.pageIndex;
+  const pageCount = table.getPageCount();
   return (
     <div>
       <div className="flex items-center py-4">
@@ -360,6 +361,7 @@ export function AltTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
+     
         <Button
           variant="outline"
           size="sm"
@@ -368,6 +370,9 @@ export function AltTable<TData, TValue>({
         >
           Previous
         </Button>
+        <span className="text-sm text-muted-foreground">
+          Page {pageIndex + 1} of {pageCount}
+        </span>
         <Button
           variant="outline"
           size="sm"

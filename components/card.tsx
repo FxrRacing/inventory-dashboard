@@ -1,6 +1,6 @@
 import { BuildingOffice2Icon, BuildingStorefrontIcon } from "@heroicons/react/16/solid";
 import { ArrowTopRightOnSquareIcon, ArrowTrendingUpIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";
-export default function Card() {
+export default function Card(store: string, name: string, page: string, children: React.ReactNode) {
   return (
 
 
